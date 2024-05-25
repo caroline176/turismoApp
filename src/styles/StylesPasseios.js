@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-export const StylesPasseios = {
+export const StylesPasseios = StyleSheet.create({
   container: {
     flex: 1, // Preencha todo o espaço que esta vazio/sobrando
   },
@@ -114,4 +114,4 @@ export const StylesPasseios = {
     alignItems: "center",
     justifyContent: "center",
   },
-};
+});

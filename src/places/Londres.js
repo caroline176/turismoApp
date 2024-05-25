@@ -34,9 +34,7 @@ import { StylesConteudo } from "../styles/StylesConteudo";
 //
 import axios from "axios";
 const API_KEY = "03dd05e72c34ac72cadd07d2744007aa"; // Substitua com sua chave da API do OpenWeatherMap
-const latitude = 51.5074;
-const longitude = -0.1278;
-const locations = [
+const locationLondres = [
   {
     latitude: 51.5074,
     longitude: -0.1278,
@@ -86,13 +84,15 @@ export default function Londres() {
   }, [vis, heightValue, DEVICE_HEIGHT]);
 
   useEffect(() => {
-    fetchWeather();
-  }, []);
+    if (vis === true) {
+      fetchWeather();
+    }
+  }, [vis]);
 
   const fetchWeather = async () => {
     try {
       const response = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric`
+        `https://api.openweathermap.org/data/2.5/weather?lat=${locationLondres[0].latitude}&lon=${locationLondres[0].longitude}&appid=${API_KEY}&units=metric`
       );
       setWeather(response.data);
       console.log(` Console.log response.data: ${weather}`);
@@ -232,7 +232,7 @@ export default function Londres() {
                     />
                     <Text style={StylesConteudo.TxtLocalizaçao}>
                       {weather ? (
-                        `${weather.main.temp}°C`
+                        `${weather.main.temp} °C`
                       ) : (
                         <ActivityIndicator size="small" color="#ffffff" />
                       )}
@@ -244,7 +244,9 @@ export default function Londres() {
                   </View>
                 </View>
                 <View style={StylesConteudo.TxtIntroduçaocidade}>
-                  <Text style={{ color: "#FFFFFF" }}>Descrição</Text>
+                  <Text style={{ color: "#FFFFFF", marginTop: 10 }}>
+                    Descrição
+                  </Text>
                   <Text style={{ color: "#FFFFFF" }}>
                     A Catedral e Igreja Metropolítica de São Pedro em Iorque,
                     mais conhecida como Catedral de Iorque é a maior catedral de
@@ -279,7 +281,7 @@ export default function Londres() {
                 title={"Você esta aqui"}
                 pinColor="blue" // Cor azul para destacar a localização atual
               />
-              {locations.map((loc, index) => (
+              {locationLondres.map((loc, index) => (
                 <Marker
                   key={index}
                   coordinate={{

@@ -1,6 +1,6 @@
-import { Header } from "react-native/Libraries/NewAppScreen";
+import { StyleSheet } from "react-native";
 
-export const StylesHome = {
+export const StylesHome = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#FFF",
@@ -144,6 +144,6 @@ export const StylesHome = {
     fontFamily: "CormorantGaramond-Light",
   },
   finaldapagina: {
-    height: 100,
+    height: 60,
   },
-};
+});

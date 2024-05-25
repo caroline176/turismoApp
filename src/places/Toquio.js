@@ -37,9 +37,8 @@ import { StylesConteudo } from "../styles/StylesConteudo";
 const { height: DEVICE_HEIGHT } = Dimensions.get("window");
 
 const API_KEY = "03dd05e72c34ac72cadd07d2744007aa"; // Substitua com sua chave da API do OpenWeatherMap
-const latitude = 35.6895;
-const longitude = 139.6917;
-const locations = [
+
+const locationToquio = [
   {
     latitude: 35.6895,
     longitude: 139.6917,
@@ -87,13 +86,15 @@ export default function Toquio() {
   }, [vis, heightValue, DEVICE_HEIGHT]);
 
   useEffect(() => {
-    fetchWeather();
-  }, []);
+    if (vis === true) {
+      fetchWeather();
+    }
+  }, [vis]);
 
   const fetchWeather = async () => {
     try {
       const response = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric`
+        `https://api.openweathermap.org/data/2.5/weather?lat=${locationToquio[0].latitude}&lon=${locationToquio[0].longitude}&appid=${API_KEY}&units=metric`
       );
       setWeather(response.data);
       console.log(` Console.log response.data: ${weather}`);
@@ -239,7 +240,7 @@ export default function Toquio() {
                     />
                     <Text style={StylesConteudo.TxtLocalizaçao}>
                       {weather ? (
-                        `${weather.main.temp}°C`
+                        `${weather.main.temp} °C`
                       ) : (
                         <ActivityIndicator size="small" color="#ffffff" />
                       )}
@@ -251,7 +252,9 @@ export default function Toquio() {
                   </View>
                 </View>
                 <View style={StylesConteudo.TxtIntroduçaocidade}>
-                  <Text style={{ color: "#FFFFFF" }}>Descrição</Text>
+                  <Text style={{ color: "#FFFFFF", marginTop: 10 }}>
+                    Descrição
+                  </Text>
                   <Text style={{ color: "#FFFFFF" }}>
                     A Tokyo Skytree é uma torre de radiodifusão, usada como
                     canal de televisão, restaurante e ponto turístico. Possuí
@@ -286,7 +289,7 @@ export default function Toquio() {
                 title={"Você esta aqui"}
                 pinColor="blue" // Cor azul para destacar a localização atual
               />
-              {locations.map((loc, index) => (
+              {locationToquio.map((loc, index) => (
                 <Marker
                   key={index}
                   coordinate={{

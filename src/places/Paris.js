@@ -38,9 +38,8 @@ import axios from "axios";
 //
 const { height: DEVICE_HEIGHT } = Dimensions.get("window");
 const API_KEY = "03dd05e72c34ac72cadd07d2744007aa"; // Substitua com sua chave da API do OpenWeatherMap
-const latitude = 48.8566;
-const longitude = 2.3522;
-const locations = [
+
+const locationParis = [
   { latitude: 48.8566, longitude: 2.3522, title: "Paris" },
 
   // Adicione mais localizações conforme necessário
@@ -83,13 +82,15 @@ export default function Paris() {
   }, [vis, heightValue, DEVICE_HEIGHT]);
 
   useEffect(() => {
-    fetchWeather();
-  }, []);
+    if (vis === true) {
+      fetchWeather();
+    }
+  }, [vis]);
 
   const fetchWeather = async () => {
     try {
       const response = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric`
+        `https://api.openweathermap.org/data/2.5/weather?lat=${locationParis[0].latitude}&lon=${locationParis[0].longitude}&appid=${API_KEY}&units=metric`
       );
       setWeather(response.data);
       console.log(` Console.log response.data: ${weather}`);
@@ -230,7 +231,7 @@ export default function Paris() {
                     />
                     <Text style={StylesConteudo.TxtLocalizaçao}>
                       {weather ? (
-                        `${weather.main.temp}°C`
+                        `${weather.main.temp} °C`
                       ) : (
                         <ActivityIndicator size="small" color="#ffffff" />
                       )}
@@ -242,7 +243,9 @@ export default function Paris() {
                   </View>
                 </View>
                 <View style={StylesConteudo.TxtIntroduçaocidade}>
-                  <Text style={{ color: "#FFFFFF" }}>Descrição</Text>
+                  <Text style={{ color: "#FFFFFF", marginTop: 10 }}>
+                    Descrição
+                  </Text>
                   <Text style={{ color: "#FFFFFF" }}>
                     A Torre Eiffel é uma torre treliçada de ferro forjado no
                     Champ de Mars. Tem o nome do engenheiro Gustave Eiffel, cuja
@@ -278,7 +281,7 @@ export default function Paris() {
                 title={"Você esta aqui"}
                 pinColor="blue" // Cor azul para destacar a localização atual
               />
-              {locations.map((loc, index) => (
+              {locationParis.map((loc, index) => (
                 <Marker
                   key={index}
                   coordinate={{
