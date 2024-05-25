@@ -1,6 +1,6 @@
-import { Header } from "react-native/Libraries/NewAppScreen";
+import { StyleSheet } from "react-native";
 
-export const StylesConteudo = {
+export const StylesConteudo = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#FFF",
@@ -137,4 +137,4 @@ export const StylesConteudo = {
     alignItems: "center",
     justifyContent: "center",
   },
-};
+});

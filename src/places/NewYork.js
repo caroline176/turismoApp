@@ -39,9 +39,8 @@ import { StylesConteudo } from "../styles/StylesConteudo";
 const { height: DEVICE_HEIGHT } = Dimensions.get("window");
 
 const API_KEY = "03dd05e72c34ac72cadd07d2744007aa"; // Substitua com sua chave da API do OpenWeatherMap
-const latitude = 40.7128;
-const longitude = -74.006;
-const locations = [
+
+const locationNewYork = [
   {
     latitude: 40.7128,
     longitude: -74.006,
@@ -64,7 +63,7 @@ export default function NewYork() {
   const [visMap, setVisMap] = useState(false);
 
   const [location, setLocation] = React.useState(null);
-  React.useEffect(() => {
+  useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
@@ -88,13 +87,15 @@ export default function NewYork() {
   }, [vis, heightValue, DEVICE_HEIGHT]);
 
   useEffect(() => {
-    fetchWeather();
-  }, []);
+    if (vis === true) {
+      fetchWeather();
+    }
+  }, [vis]);
 
   const fetchWeather = async () => {
     try {
       const response = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric`
+        `https://api.openweathermap.org/data/2.5/weather?lat=${locationNewYork[0].latitude}&lon=${locationNewYork[0].longitude}&appid=${API_KEY}&units=metric`
       );
       setWeather(response.data);
       console.log(` Console.log response.data: ${weather}`);
@@ -235,7 +236,7 @@ export default function NewYork() {
                     />
                     <Text style={StylesConteudo.TxtLocalizaçao}>
                       {weather ? (
-                        `${weather.main.temp}°C`
+                        `${weather.main.temp} °C`
                       ) : (
                         <ActivityIndicator size="small" color="#ffffff" />
                       )}
@@ -247,7 +248,9 @@ export default function NewYork() {
                   </View>
                 </View>
                 <View style={StylesConteudo.TxtIntroduçaocidade}>
-                  <Text style={{ color: "#FFFFFF" }}>Descrição</Text>
+                  <Text style={{ color: "#FFFFFF", marginTop: 10 }}>
+                    Descrição
+                  </Text>
                   <Text style={{ color: "#FFFFFF" }}>
                     A Estátua da Liberdade foi um presente da França para os
                     Estados Unidos como uma forma de celebrar o centenário da
@@ -284,7 +287,7 @@ export default function NewYork() {
                 title={"Você esta aqui"}
                 pinColor="blue" // Cor azul para destacar a localização atual
               />
-              {locations.map((loc, index) => (
+              {locationNewYork.map((loc, index) => (
                 <Marker
                   key={index}
                   coordinate={{

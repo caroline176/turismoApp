@@ -34,9 +34,10 @@ import { StylesConteudo } from "../styles/StylesConteudo";
 
 //
 const API_KEY = "03dd05e72c34ac72cadd07d2744007aa"; // Substitua com sua chave da API do OpenWeatherMap
-const latitude = 45.4408;
-const longitude = 12.3155;
-const locations = [{ latitude: 45.4408, longitude: 12.3155, title: "Veneza" }];
+
+const locationVeneza = [
+  { latitude: 45.4408, longitude: 12.3155, title: "Veneza" },
+];
 const { height: DEVICE_HEIGHT } = Dimensions.get("window");
 
 export default function Veneza() {
@@ -44,9 +45,9 @@ export default function Veneza() {
   const [heightValue] = useState(new Animated.Value(0));
   const [visMap, setVisMap] = useState(false);
   const [location, setLocation] = React.useState(null);
-
   const [weather, setWeather] = useState(null);
-  React.useEffect(() => {
+
+  useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
@@ -75,17 +76,20 @@ export default function Veneza() {
       }).start();
     }
   }, [vis, heightValue, DEVICE_HEIGHT]);
+
   useEffect(() => {
-    fetchWeather();
-  }, []);
+    if (vis === true) {
+      fetchWeather();
+    }
+  }, [vis]);
 
   const fetchWeather = async () => {
     try {
       const response = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric`
+        `https://api.openweathermap.org/data/2.5/weather?lat=${locationVeneza[0].latitude}&lon=${locationVeneza[0].longitude}&appid=${API_KEY}&units=metric`
       );
       setWeather(response.data);
-      console.log(` Console.log response.data: ${weather}`);
+      console.log(`Console.log response.data: ${weather}`);
     } catch (err) {
       console.log("Local não encontrado ou erro na requisição.");
     }
@@ -229,7 +233,7 @@ export default function Veneza() {
                     />
                     <Text style={StylesConteudo.TxtLocalizaçao}>
                       {weather ? (
-                        `${weather.main.temp}°C`
+                        `${weather.main.temp} °C`
                       ) : (
                         <ActivityIndicator size="small" color="#ffffff" />
                       )}
@@ -241,7 +245,9 @@ export default function Veneza() {
                   </View>
                 </View>
                 <View style={StylesConteudo.TxtIntroduçaocidade}>
-                  <Text style={{ color: "#FFFFFF" }}>Descrição</Text>
+                  <Text style={{ color: "#FFFFFF", marginTop: 10 }}>
+                    Descrição
+                  </Text>
                   <Text style={{ color: "#FFFFFF" }}>
                     A Ponte de Rialto é a ponte em arco mais antiga e mais
                     famosa sobre o Grande Canal, na cidade italiana de Veneza.
@@ -276,7 +282,7 @@ export default function Veneza() {
                 title={"Você esta aqui"}
                 pinColor="blue" // Cor azul para destacar a localização atual
               />
-              {locations.map((loc, index) => (
+              {locationVeneza.map((loc, index) => (
                 <Marker
                   key={index}
                   coordinate={{

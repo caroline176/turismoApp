@@ -38,9 +38,8 @@ import { StylesConteudo } from "../styles/StylesConteudo";
 const { height: DEVICE_HEIGHT } = Dimensions.get("window");
 
 const API_KEY = "03dd05e72c34ac72cadd07d2744007aa"; // Substitua com sua chave da API do OpenWeatherMap
-const latitude = -22.908333;
-const longitude = -43.196388;
-const locations = [
+
+const locationRio = [
   { latitude: -22.908333, longitude: -43.196388, title: "Rio de Janeiro" },
 
   // Adicione mais localizações conforme necessário
@@ -83,13 +82,15 @@ export default function RioDeJaneiro() {
   }, [vis, heightValue, DEVICE_HEIGHT]);
 
   useEffect(() => {
-    fetchWeather();
-  }, []);
+    if (vis === true) {
+      fetchWeather();
+    }
+  }, [vis]);
 
   const fetchWeather = async () => {
     try {
       const response = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric`
+        `https://api.openweathermap.org/data/2.5/weather?lat=${locationRio[0].latitude}&lon=${locationRio[0].longitude}&appid=${API_KEY}&units=metric`
       );
       setWeather(response.data);
       console.log(` Console.log response.data: ${weather}`);
@@ -230,7 +231,7 @@ export default function RioDeJaneiro() {
                     />
                     <Text style={StylesConteudo.TxtLocalizaçao}>
                       {weather ? (
-                        `${weather.main.temp}°C`
+                        `${weather.main.temp} °C`
                       ) : (
                         <ActivityIndicator size="small" color="#ffffff" />
                       )}
@@ -242,7 +243,9 @@ export default function RioDeJaneiro() {
                   </View>
                 </View>
                 <View style={StylesConteudo.TxtIntroduçaocidade}>
-                  <Text style={{ color: "#FFFFFF" }}>Descrição</Text>
+                  <Text style={{ color: "#FFFFFF", marginTop: 10 }}>
+                    Descrição
+                  </Text>
                   <Text style={{ color: "#FFFFFF" }}>
                     Cristo Redentor é uma estátua que retrata Jesus Cristo
                     localizada no topo do morro do Corcovado, a 709 metros acima
@@ -278,7 +281,7 @@ export default function RioDeJaneiro() {
                 title={"Você esta aqui"}
                 pinColor="blue" // Cor azul para destacar a localização atual
               />
-              {locations.map((loc, index) => (
+              {locationRio.map((loc, index) => (
                 <Marker
                   key={index}
                   coordinate={{

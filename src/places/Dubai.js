@@ -37,9 +37,7 @@ import { StylesConteudo } from "../styles/StylesConteudo";
 const API_KEY = "03dd05e72c34ac72cadd07d2744007aa"; // Substitua com sua chave da API do OpenWeatherMap
 const { height: DEVICE_HEIGHT } = Dimensions.get("window");
 
-const latitude = 25.276987;
-const longitude = 55.296249;
-const locations = [
+const locationDubai = [
   {
     latitude: 25.276987,
     longitude: 55.296249,
@@ -88,16 +86,18 @@ export default function Dubai() {
   }, [vis, heightValue, DEVICE_HEIGHT]);
 
   useEffect(() => {
-    fetchWeather();
-  }, []);
+    if (vis === true) {
+      fetchWeather();
+    }
+  }, [vis]);
 
   const fetchWeather = async () => {
     try {
       const response = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric`
+        `https://api.openweathermap.org/data/2.5/weather?lat=${locationDubai[0].latitude}&lon=${locationDubai[0].longitude}&appid=${API_KEY}&units=metric`
       );
       setWeather(response.data);
-      console.log(` Console.log response.data: ${weather}`);
+      console.log(`Console.log response.data: ${weather}`);
     } catch (err) {
       console.log("Local não encontrado ou erro na requisição.");
     }
@@ -241,7 +241,7 @@ export default function Dubai() {
                     />
                     <Text style={StylesConteudo.TxtLocalizaçao}>
                       {weather ? (
-                        `${weather.main.temp}°C`
+                        `${weather.main.temp} °C`
                       ) : (
                         <ActivityIndicator size="small" color="#ffffff" />
                       )}
@@ -253,7 +253,9 @@ export default function Dubai() {
                   </View>
                 </View>
                 <View style={StylesConteudo.TxtIntroduçaocidade}>
-                  <Text style={{ color: "#FFFFFF" }}>Descrição</Text>
+                  <Text style={{ color: "#FFFFFF", marginTop: 10 }}>
+                    Descrição
+                  </Text>
                   <Text style={{ color: "#FFFFFF" }}>
                     Burj Khalifa Bin Zayid, anteriormente conhecido como Burj
                     Dubai, é um arranha-céu localizado em Dubai, nos Emirados
@@ -289,7 +291,7 @@ export default function Dubai() {
                 title={"Você esta aqui"}
                 pinColor="blue" // Cor azul para destacar a localização atual
               />
-              {locations.map((loc, index) => (
+              {locationDubai.map((loc, index) => (
                 <Marker
                   key={index}
                   coordinate={{
