@@ -31,12 +31,10 @@ export const StylesTelaInicio = StyleSheet.create({
 
   sombratelainicio: {
     flex: 1,
-    position: "absolute",
     width: "100%",
     height: "100%",
     backgroundColor: "#00000066",
     justifyContent: "center",
-    borderRadius: 50,
     justifyContent: "center",
   },
 

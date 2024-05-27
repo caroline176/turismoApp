@@ -37,13 +37,9 @@ import { StylesConteudo } from "../styles/StylesConteudo";
 //
 const { height: DEVICE_HEIGHT } = Dimensions.get("window");
 
-const API_KEY = "03dd05e72c34ac72cadd07d2744007aa"; // Substitua com sua chave da API do OpenWeatherMap
-
-const locationRio = [
-  { latitude: -22.908333, longitude: -43.196388, title: "Rio de Janeiro" },
-
-  // Adicione mais localizações conforme necessário
-];
+// IMPORT DADOS PARA API
+import { API_KEY } from "../geolocation/geolocation";
+import { locations } from "../geolocation/geolocation";
 
 export default function RioDeJaneiro() {
   const [vis, setVis] = useState(false);
@@ -90,7 +86,7 @@ export default function RioDeJaneiro() {
   const fetchWeather = async () => {
     try {
       const response = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${locationRio[0].latitude}&lon=${locationRio[0].longitude}&appid=${API_KEY}&units=metric`
+        `https://api.openweathermap.org/data/2.5/weather?lat=${locations[2].latitude}&lon=${locations[2].longitude}&appid=${API_KEY}&units=metric`
       );
       setWeather(response.data);
       console.log(` Console.log response.data: ${weather}`);
@@ -281,17 +277,13 @@ export default function RioDeJaneiro() {
                 title={"Você esta aqui"}
                 pinColor="blue" // Cor azul para destacar a localização atual
               />
-              {locationRio.map((loc, index) => (
-                <Marker
-                  key={index}
-                  coordinate={{
-                    latitude: loc.latitude,
-                    longitude: loc.longitude,
-                  }}
-                  title={loc.title}
-                  description={loc.description}
-                />
-              ))}
+              <Marker
+                coordinate={{
+                  latitude: locations[2].latitude,
+                  longitude: locations[2].longitude,
+                }}
+                title={locations[2].title}
+              />
             </MapView>
           )}
 

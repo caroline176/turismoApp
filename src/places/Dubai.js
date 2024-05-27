@@ -34,20 +34,11 @@ import { useNavigation } from "@react-navigation/native";
 import React, { useState, useEffect } from "react";
 import { StylesConteudo } from "../styles/StylesConteudo";
 
+// IMPORT DADOS PARA API
+import { API_KEY } from "../geolocation/geolocation";
 import { locations } from "../geolocation/geolocation";
 
-const API_KEY = "03dd05e72c34ac72cadd07d2744007aa"; // Substitua com sua chave da API do OpenWeatherMap
 const { height: DEVICE_HEIGHT } = Dimensions.get("window");
-
-const locationDubai = [
-  {
-    latitude: 25.276987,
-    longitude: 55.296249,
-    title: "Dubai",
-  },
-
-  // Adicione mais localizações conforme necessário
-];
 
 export default function Dubai() {
   const [vis, setVis] = useState(false);

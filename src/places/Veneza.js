@@ -32,12 +32,10 @@ import { useNavigation } from "@react-navigation/native";
 import React, { useState, useEffect } from "react";
 import { StylesConteudo } from "../styles/StylesConteudo";
 
-//
-const API_KEY = "03dd05e72c34ac72cadd07d2744007aa"; // Substitua com sua chave da API do OpenWeatherMap
+// IMPORT DADOS PARA API
+import { API_KEY } from "../geolocation/geolocation";
+import { locations } from "../geolocation/geolocation";
 
-const locationVeneza = [
-  { latitude: 45.4408, longitude: 12.3155, title: "Veneza" },
-];
 const { height: DEVICE_HEIGHT } = Dimensions.get("window");
 
 export default function Veneza() {
@@ -86,7 +84,7 @@ export default function Veneza() {
   const fetchWeather = async () => {
     try {
       const response = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${locationVeneza[0].latitude}&lon=${locationVeneza[0].longitude}&appid=${API_KEY}&units=metric`
+        `https://api.openweathermap.org/data/2.5/weather?lat=${locations[3].latitude}&lon=${locations[3].longitude}&appid=${API_KEY}&units=metric`
       );
       setWeather(response.data);
       console.log(`Console.log response.data: ${weather}`);
@@ -282,17 +280,13 @@ export default function Veneza() {
                 title={"Você esta aqui"}
                 pinColor="blue" // Cor azul para destacar a localização atual
               />
-              {locationVeneza.map((loc, index) => (
-                <Marker
-                  key={index}
-                  coordinate={{
-                    latitude: loc.latitude,
-                    longitude: loc.longitude,
-                  }}
-                  title={loc.title}
-                  description={loc.description}
-                />
-              ))}
+              <Marker
+                coordinate={{
+                  latitude: locations[3].latitude,
+                  longitude: locations[3].longitude,
+                }}
+                title={locations[3].title}
+              />
             </MapView>
           )}
 

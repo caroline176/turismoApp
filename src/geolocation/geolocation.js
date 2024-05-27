@@ -1,3 +1,5 @@
+export const API_KEY = "03dd05e72c34ac72cadd07d2744007aa";
+
 export const locations = [
   {
     latitude: 51.5074,

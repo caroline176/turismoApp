@@ -36,17 +36,9 @@ import { StylesConteudo } from "../styles/StylesConteudo";
 //
 const { height: DEVICE_HEIGHT } = Dimensions.get("window");
 
-const API_KEY = "03dd05e72c34ac72cadd07d2744007aa"; // Substitua com sua chave da API do OpenWeatherMap
-
-const locationToquio = [
-  {
-    latitude: 35.6895,
-    longitude: 139.6917,
-    title: "Tóquio",
-  },
-
-  // Adicione mais localizações conforme necessário
-];
+// IMPORT DADOS PARA API
+import { API_KEY } from "../geolocation/geolocation";
+import { locations } from "../geolocation/geolocation";
 
 export default function Toquio() {
   const [vis, setVis] = useState(false);
@@ -94,7 +86,7 @@ export default function Toquio() {
   const fetchWeather = async () => {
     try {
       const response = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${locationToquio[0].latitude}&lon=${locationToquio[0].longitude}&appid=${API_KEY}&units=metric`
+        `https://api.openweathermap.org/data/2.5/weather?lat=${locations[5].latitude}&lon=${locations[5].longitude}&appid=${API_KEY}&units=metric`
       );
       setWeather(response.data);
       console.log(` Console.log response.data: ${weather}`);
@@ -289,17 +281,13 @@ export default function Toquio() {
                 title={"Você esta aqui"}
                 pinColor="blue" // Cor azul para destacar a localização atual
               />
-              {locationToquio.map((loc, index) => (
-                <Marker
-                  key={index}
-                  coordinate={{
-                    latitude: loc.latitude,
-                    longitude: loc.longitude,
-                  }}
-                  title={loc.title}
-                  description={loc.description}
-                />
-              ))}
+              <Marker
+                coordinate={{
+                  latitude: locations[5].latitude,
+                  longitude: locations[5].longitude,
+                }}
+                title={locations[5].title}
+              />
             </MapView>
           )}
 

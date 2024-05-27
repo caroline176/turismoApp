@@ -33,16 +33,11 @@ import { StylesConteudo } from "../styles/StylesConteudo";
 
 //
 import axios from "axios";
-const API_KEY = "03dd05e72c34ac72cadd07d2744007aa"; // Substitua com sua chave da API do OpenWeatherMap
-const locationLondres = [
-  {
-    latitude: 51.5074,
-    longitude: -0.1278,
-    title: "Londres",
-  },
 
-  // Adicione mais localizações conforme necessário
-];
+// IMPORT DADOS PARA API
+import { API_KEY } from "../geolocation/geolocation";
+import { locations } from "../geolocation/geolocation";
+
 const { height: DEVICE_HEIGHT } = Dimensions.get("window");
 
 export default function Londres() {
@@ -92,7 +87,7 @@ export default function Londres() {
   const fetchWeather = async () => {
     try {
       const response = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${locationLondres[0].latitude}&lon=${locationLondres[0].longitude}&appid=${API_KEY}&units=metric`
+        `https://api.openweathermap.org/data/2.5/weather?lat=${locations[0].latitude}&lon=${locations[0].longitude}&appid=${API_KEY}&units=metric`
       );
       setWeather(response.data);
       console.log(` Console.log response.data: ${weather}`);
@@ -281,17 +276,13 @@ export default function Londres() {
                 title={"Você esta aqui"}
                 pinColor="blue" // Cor azul para destacar a localização atual
               />
-              {locationLondres.map((loc, index) => (
-                <Marker
-                  key={index}
-                  coordinate={{
-                    latitude: loc.latitude,
-                    longitude: loc.longitude,
-                  }}
-                  title={loc.title}
-                  description={loc.description}
-                />
-              ))}
+              <Marker
+                coordinate={{
+                  latitude: locations[0].latitude,
+                  longitude: locations[0].longitude,
+                }}
+                title={locations[0].title}
+              />
             </MapView>
           )}
 

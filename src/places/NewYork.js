@@ -38,17 +38,9 @@ import { StylesConteudo } from "../styles/StylesConteudo";
 //
 const { height: DEVICE_HEIGHT } = Dimensions.get("window");
 
-const API_KEY = "03dd05e72c34ac72cadd07d2744007aa"; // Substitua com sua chave da API do OpenWeatherMap
-
-const locationNewYork = [
-  {
-    latitude: 40.7128,
-    longitude: -74.006,
-    title: "Nova York",
-  },
-
-  // Adicione mais localizações conforme necessário
-];
+// IMPORT DADOS PARA API
+import { API_KEY } from "../geolocation/geolocation";
+import { locations } from "../geolocation/geolocation";
 
 export default function NewYork() {
   const [vis, setVis] = useState(false);
@@ -95,7 +87,7 @@ export default function NewYork() {
   const fetchWeather = async () => {
     try {
       const response = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${locationNewYork[0].latitude}&lon=${locationNewYork[0].longitude}&appid=${API_KEY}&units=metric`
+        `https://api.openweathermap.org/data/2.5/weather?lat=${locations[6].latitude}&lon=${locations[6].longitude}&appid=${API_KEY}&units=metric`
       );
       setWeather(response.data);
       console.log(` Console.log response.data: ${weather}`);
@@ -287,17 +279,13 @@ export default function NewYork() {
                 title={"Você esta aqui"}
                 pinColor="blue" // Cor azul para destacar a localização atual
               />
-              {locationNewYork.map((loc, index) => (
-                <Marker
-                  key={index}
-                  coordinate={{
-                    latitude: loc.latitude,
-                    longitude: loc.longitude,
-                  }}
-                  title={loc.title}
-                  description={loc.description}
-                />
-              ))}
+              <Marker
+                coordinate={{
+                  latitude: locations[6].latitude,
+                  longitude: locations[6].longitude,
+                }}
+                title={locations[6].title}
+              />
             </MapView>
           )}
 

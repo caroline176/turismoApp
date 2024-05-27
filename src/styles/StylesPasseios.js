@@ -56,13 +56,11 @@ export const StylesPasseios = StyleSheet.create({
   },
 
   imgsconteudo: {
-    width: 300,
+    width: "100%",
     height: 300,
-    margin: 30,
-    marginBottom: 5,
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 10,
+    marginTop: 10,
   },
   algconteudo: {
     alignItems: "center",
