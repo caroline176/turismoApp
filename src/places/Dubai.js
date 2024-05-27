@@ -34,6 +34,8 @@ import { useNavigation } from "@react-navigation/native";
 import React, { useState, useEffect } from "react";
 import { StylesConteudo } from "../styles/StylesConteudo";
 
+import { locations } from "../geolocation/geolocation";
+
 const API_KEY = "03dd05e72c34ac72cadd07d2744007aa"; // Substitua com sua chave da API do OpenWeatherMap
 const { height: DEVICE_HEIGHT } = Dimensions.get("window");
 
@@ -94,7 +96,7 @@ export default function Dubai() {
   const fetchWeather = async () => {
     try {
       const response = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${locationDubai[0].latitude}&lon=${locationDubai[0].longitude}&appid=${API_KEY}&units=metric`
+        `https://api.openweathermap.org/data/2.5/weather?lat=${locations[4].latitude}&lon=${locations[4].longitude}&appid=${API_KEY}&units=metric`
       );
       setWeather(response.data);
       console.log(`Console.log response.data: ${weather}`);
@@ -291,17 +293,13 @@ export default function Dubai() {
                 title={"Você esta aqui"}
                 pinColor="blue" // Cor azul para destacar a localização atual
               />
-              {locationDubai.map((loc, index) => (
-                <Marker
-                  key={index}
-                  coordinate={{
-                    latitude: loc.latitude,
-                    longitude: loc.longitude,
-                  }}
-                  title={loc.title}
-                  description={loc.description}
-                />
-              ))}
+              <Marker
+                coordinate={{
+                  latitude: locations[4].latitude,
+                  longitude: locations[4].longitude,
+                }}
+                title={locations[4].title}
+              />
             </MapView>
           )}
 
