@@ -12,6 +12,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Veneza from "../places/Veneza";
 import Passeios from "../pages/Passeios";
+import CarrinhoLondres from "../pages/CarrinhoLondres";
 
 const Stack = createNativeStackNavigator();
 
@@ -61,6 +62,11 @@ export default function StackRoute() {
       <Stack.Screen
         name="Passeios"
         component={Passeios}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="CarrinhoLondres"
+        component={CarrinhoLondres}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

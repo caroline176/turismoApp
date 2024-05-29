@@ -14,6 +14,7 @@ import {
 } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import * as Location from "expo-location";
+import CarrinhoLondres from "../pages/CarrinhoLondres";
 // Imports icons
 import { FontAwesome } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
@@ -114,6 +115,15 @@ export default function Londres() {
             onPress={() => navigation.navigate("HomeStack")}
           >
             <FontAwesome name="arrow-left" size={24} color="white" />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={StylesConteudo.btnReserva}
+            onPress={() => navigation.navigate("CarrinhoLondres")}
+          >
+            <Image
+              style={{ height: "70%", width: "70%", color: "white" }}
+              source={require("../assets/icons/imagemreserva.png")}
+            />
           </TouchableOpacity>
           <TouchableOpacity
             style={StylesConteudo.btnMaps}
@@ -252,6 +262,12 @@ export default function Londres() {
                     Iorque, Inglaterra.
                   </Text>
                 </View>
+                <TouchableOpacity
+                  style={StylesConteudo.pressme}
+                  onPress={() => navigation.navigate("CarrinhoLondres")}
+                >
+                  <Text style={StylesConteudo.txtpressme}>Press me!</Text>
+                </TouchableOpacity>
               </View>
             </View>
           </ImageBackground>

@@ -25,6 +25,14 @@ export const StylesConteudo = {
     alignItems: "center",
     justifyContent: "center",
   },
+  btnReserva: {
+    backgroundColor: "#326e6c",
+    width: 40,
+    height: 40,
+    borderRadius: 100,
+    alignItems: "center",
+    justifyContent: "center",
+  },
   btnMaps: {
     marginRight: 30,
     backgroundColor: "#326e6c",
@@ -136,5 +144,22 @@ export const StylesConteudo = {
     marginTop: 20,
     alignItems: "center",
     justifyContent: "center",
+  },
+  pressme: {
+    justifyContent: "center",
+    top: 14,
+    alignItems: "center",
+    backgroundColor: " black",
+    borderRadius: 2,
+    border: 10,
+    backgroundColor: "white",
+    width: 100,
+    height: 30,
+    borderRadius: 10,
+    marginLeft: 100,
+  },
+  txtpressme: {
+    color: "black",
+    fontSize: 15,
   },
 };
