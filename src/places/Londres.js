@@ -262,12 +262,6 @@ export default function Londres() {
                     Iorque, Inglaterra.
                   </Text>
                 </View>
-                <TouchableOpacity
-                  style={StylesConteudo.pressme}
-                  onPress={() => navigation.navigate("CarrinhoLondres")}
-                >
-                  <Text style={StylesConteudo.txtpressme}>Press me!</Text>
-                </TouchableOpacity>
               </View>
             </View>
           </ImageBackground>
