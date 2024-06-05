@@ -14,7 +14,6 @@ import { FontAwesome } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
 const data = [
-  // Links das imagens ultilizadas no carousel e nas telas de informações
   {
     imgUrl: require("../assets/images/hotellondres.jpg"),
   },
