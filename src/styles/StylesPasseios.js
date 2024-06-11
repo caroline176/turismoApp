@@ -105,7 +105,7 @@ export const StylesPasseios = {
     backgroundColor: "white",
     width: 380,
     height: 550,
-    borderRadius: "20",
+    borderRadius: 20,
     margin: 25,
     shadowColor: "#326e6c",
     shadowOffset: { width: 0, height: 2 },
